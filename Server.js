@@ -14,9 +14,9 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(cors({
-    origin:'  http://localhost:5173',
+    origin:'https://krixy.netlify.app',
     credentials:true,
-    methods:"GET,POST,PUT,DELETE",
+    methods:"GET,POST",
     allowedHeaders:'Content-Type,Authorization'
 }))
 const port = process.env.PORT || 3000
