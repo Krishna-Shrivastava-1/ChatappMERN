@@ -179,6 +179,23 @@ router.get('/user/:id', verifytoken, async (req, res) => {
 })
 
 
+// UpdateProfile
 
+router.put('/:id', async (req, res) => {
+    try {
+        if (!req.body.descript) {
+            return res.status(400).send({ message: 'Please fill correctly' })
+        }
+        const { id } = req.params
+        const result = await User.findByIdAndUpdate(id, req.body)
+        if (!result) {
+            return res.status(404).json({ message: 'Profile not found' })
+        }
+        return res.status(200).send({ message: 'Profile Updated Succesfully' })
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).send({ message: error.message })
+    }
+})
 
 export default router

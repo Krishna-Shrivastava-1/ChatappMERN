@@ -1,5 +1,6 @@
 import express from 'express'
 import Message from '../Models/Message.js';
+import User from '../Models/User.js';
 
 
 const app = express
@@ -7,7 +8,7 @@ const app = express
 const router = app.Router()
 
 
-router.post('/messages',async(req,res)=>{
+router.post('/messages', async (req, res) => {
     try {
         const { message, senderId, receiverId } = req.body;  // Extract message data from the request
 
@@ -46,6 +47,8 @@ router.get('/messages/:senderId/:receiverId', async (req, res) => {
         res.status(500).json({ success: false, message: 'Failed to fetch messages.' });
     }
 });
+
+
 
 
 

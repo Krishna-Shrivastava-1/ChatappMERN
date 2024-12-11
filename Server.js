@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(cors({
     origin:'https://krixy.netlify.app',
     credentials:true,
-    methods:"GET,POST",
+    methods:"GET,POST,PUT",
     allowedHeaders:'Content-Type,Authorization'
 }))
 const port = process.env.PORT || 3000
@@ -35,5 +35,5 @@ app.listen(port,()=>{
 })
 
 
-
+// https://krixy.netlify.app
 

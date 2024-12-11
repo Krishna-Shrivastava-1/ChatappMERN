@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    descript:{
+        type:String,
+        default:'Hey! Iam using a Krix Product'
     }
     // ,
     // createdAt :{
