@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
     descript:{
         type:String,
         default:'Hey! Iam using a Krix Product'
+    },
+    imageurl:{
+        type:String,
+        
     }
     // ,
     // createdAt :{

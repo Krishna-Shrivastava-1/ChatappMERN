@@ -2,9 +2,12 @@ import express from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import User from '../Models/User.js'
-// import { verifytoken } from '../Middleware/verifytoken.js'
+import { CloudinaryStorage } from 'multer-storage-cloudinary'
+import { v2 as cloudinary } from 'cloudinary'
+import multer from 'multer'
+import dotenv from 'dotenv'
 const app = express
-
+dotenv.config()
 const router = app.Router()
 const secretKey = process.env.SecretKey || 'cbahbcheahecvhvevu487gbfacajjh'
 
@@ -195,6 +198,39 @@ router.put('/:id', async (req, res) => {
     } catch (error) {
         console.log(error.message)
         res.status(500).send({ message: error.message })
+    }
+})
+
+
+// Upload User Profile Image
+
+cloudinary.config({
+    cloud_name: process.env.Cloud_name || 'da4qsaa82',
+    api_key: process.env.Api_key || 797249776826876,
+    api_secret: process.env.Api_secret || 'zFUTWOtJwqd35eWNCZynx2dtEU8'
+})
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'Userprofileimages',
+        allowed_formats: ['jpg', 'png']
+    }
+})
+const upload = multer({ storage: storage })
+
+router.post('/uploadprofileimage/:id', upload.single('image'), async (req, res) => {
+    // console.log("Upload route hit");
+    try {
+        const { id } = req.params
+        const imageurl = req.file.path
+        const upadteduser = await User.findByIdAndUpdate(id, { imageurl }, { new: true });
+        res.status(200).send({ message: 'Image uploaded successfully', user: upadteduser });
+        
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: 'server error' })
     }
 })
 
